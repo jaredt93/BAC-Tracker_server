@@ -62,7 +62,6 @@ app.post("/api/auth", async (req, res) => {
         uid: user._id,
         name: user.firstName + " " + user.lastName,
         email: user.email,
-        customerId: user.customerId,
         exp: Math.floor(Date.now() / 1000) + 3600,
         currentTime: Date.now(),
       },
@@ -78,6 +77,7 @@ app.post("/api/auth", async (req, res) => {
       gender: user.gender,
       city: user.city,
       readingHistory: user.readingHistory,
+      token: token,
     });
   } else {
     res.status(401).send({ error: "You're not found" });
