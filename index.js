@@ -203,7 +203,15 @@ const uri =
   "mongodb+srv://group35280:uncc2022@cluster0.rts9eht.mongodb.net/test";
 const client = new MongoClient(uri);
 
-async function createUser(email, password, firstName, lastName, gender, city) {
+async function createUser(
+  email,
+  password,
+  firstName,
+  lastName,
+  gender,
+  city,
+  readingHistory
+) {
   try {
     await client.connect();
     const doc = {
@@ -213,7 +221,7 @@ async function createUser(email, password, firstName, lastName, gender, city) {
       lastName: lastName,
       gender: gender,
       city: city,
-      readingHistory: user.readingHistory,
+      readingHistory: readingHistory,
     };
     const result = await client
       .db("bacTracker")
