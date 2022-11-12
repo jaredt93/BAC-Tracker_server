@@ -168,7 +168,8 @@ app.post("/api/signup", async (req, res) => {
         req.body.firstName,
         req.body.lastName,
         req.body.gender,
-        req.body.city
+        req.body.city,
+        req.body.readingHistory
       );
     } catch (exception) {
       console.log(exception);
@@ -184,6 +185,7 @@ app.post("/api/signup", async (req, res) => {
       lastName: req.body.lastName,
       gender: req.body.gender,
       city: req.body.city,
+      readingHistory: req.body.readingHistory,
     });
   };
 });
