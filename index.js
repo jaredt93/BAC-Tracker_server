@@ -168,8 +168,7 @@ app.post("/api/signup", async (req, res) => {
         req.body.firstName,
         req.body.lastName,
         req.body.gender,
-        req.body.city,
-        req.body.readingHistory
+        req.body.city
       );
     } catch (exception) {
       console.log(exception);
@@ -185,7 +184,6 @@ app.post("/api/signup", async (req, res) => {
       lastName: req.body.lastName,
       gender: req.body.gender,
       city: req.body.city,
-      readingHistory: req.body.readingHistory,
     });
   };
 });
@@ -206,15 +204,7 @@ const uri =
   "mongodb+srv://group35280:uncc2022@cluster0.rts9eht.mongodb.net/test";
 const client = new MongoClient(uri);
 
-async function createUser(
-  email,
-  password,
-  firstName,
-  lastName,
-  gender,
-  city,
-  readingHistory
-) {
+async function createUser(email, password, firstName, lastName, gender, city) {
   try {
     await client.connect();
     const doc = {
@@ -224,7 +214,6 @@ async function createUser(
       lastName: lastName,
       gender: gender,
       city: city,
-      readingHistory: readingHistory,
     };
     const result = await client
       .db("bacTracker")
