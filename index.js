@@ -157,6 +157,16 @@ app.post("/api/signup", async (req, res) => {
 
   encryptedPassword = await getEncryptedPassword(req.body.password);
   console.log("new password: " + encryptedPassword);
+
+  res.send({
+    message: "You're registered ",
+    id: userId,
+    email: req.body.email,
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    gender: req.body.gender,
+    city: req.body.city,
+  });
 });
 
 app.post(
