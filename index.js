@@ -90,7 +90,8 @@ app.post("/api/user/update", jwtValidateUserMiddleware, async (req, res) => {
     req.body.firstName,
     req.body.lastName,
     req.body.gender,
-    req.body.city
+    req.body.city,
+    req.body.readingHistory
   );
   if (updated) {
     console.log("send successful updated response back");
@@ -165,7 +166,8 @@ app.post("/api/signup", async (req, res) => {
       req.body.firstName,
       req.body.lastName,
       req.body.gender,
-      req.body.city
+      req.body.city,
+      null
     );
   } catch (exception) {
     console.log(exception);
@@ -181,6 +183,7 @@ app.post("/api/signup", async (req, res) => {
     lastName: req.body.lastName,
     gender: req.body.gender,
     city: req.body.city,
+    readingHistory: null,
   });
 });
 
@@ -210,6 +213,7 @@ async function createUser(email, password, firstName, lastName, gender, city) {
       lastName: lastName,
       gender: gender,
       city: city,
+      readingHistory: user.readingHistory,
     };
     const result = await client
       .db("bacTracker")
@@ -258,6 +262,7 @@ async function updateUser(uid, firstName, lastName, gender, city, age) {
         gender: gender,
         city: city,
         age: age,
+        readingHistory: readingHistory,
       },
     };
     let updated = await client
@@ -296,5 +301,7 @@ app.post("/api/user/find", jwtValidateUserMiddleware, async (req, res) => {
     lastName: user.lastName,
     gender: user.gender,
     city: user.city,
+    token: req.header(headerTokenKey),
+    readingHistory: user.readingHistory,
   });
 });
