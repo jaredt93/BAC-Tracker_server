@@ -158,15 +158,34 @@ app.post("/api/signup", async (req, res) => {
   encryptedPassword = await getEncryptedPassword(req.body.password);
   console.log("new password: " + encryptedPassword);
 
-  res.send({
-    message: "You're registered ",
-    id: userId,
-    email: req.body.email,
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
-    gender: req.body.gender,
-    city: req.body.city,
-  });
+  async (err, result) => {
+    result.success;
+
+    try {
+      userId = await createUser(
+        req.body.email,
+        encryptedPassword,
+        req.body.firstName,
+        req.body.lastName,
+        req.body.gender,
+        req.body.city
+      );
+    } catch (exception) {
+      console.log(exception);
+      res.status(401).send({ error: "Unable to register at this time " });
+      return;
+    }
+
+    res.send({
+      message: "You're registered ",
+      id: userId,
+      email: req.body.email,
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      gender: req.body.gender,
+      city: req.body.city,
+    });
+  };
 });
 
 app.post(
