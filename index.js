@@ -32,7 +32,6 @@ const jwtValidateUserMiddleware = (req, res, next) => {
       console.log("verify " + token);
       let decoded = jwt.verify(token, jwtSecret);
       req.decodedToken = decoded;
-      req.customerId = decoded.customerId;
       console.log("user validated " + decoded);
       next();
     } catch (err) {
@@ -257,7 +256,14 @@ async function findUser(email, password) {
 
 const { ObjectId } = require("mongodb");
 const { create } = require("domain");
-async function updateUser(uid, firstName, lastName, gender, city, age) {
+async function updateUser(
+  uid,
+  firstName,
+  lastName,
+  gender,
+  city,
+  readingHistory
+) {
   try {
     await client.connect();
 
@@ -269,15 +275,14 @@ async function updateUser(uid, firstName, lastName, gender, city, age) {
         lastName: lastName,
         gender: gender,
         city: city,
-        age: age,
         readingHistory: readingHistory,
       },
     };
     let updated = await client
-      .db("users")
-      .collection("user")
+      .db("bacTracker")
+      .collection("users")
       .updateOne(filter, updateDoc);
-    console.log("wait to update " + uid + " " + age);
+    console.log("wait to update " + uid);
     if (updated) {
       console.log("user was updated ");
       return updated;
