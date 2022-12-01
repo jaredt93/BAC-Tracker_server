@@ -5,6 +5,9 @@
 - Tom Va
 - Jared Tamulynas
 
+### Link to Youtube Channel
+[Project Demo](https://youtu.be/fFmsVcjifYk)
+
 ### Implementation
 In this in class assignment you will be working with the BACtrack BLE based alcohol breathalyzer.  Each team will be provided by a breathalyzer to use for this project.
 
